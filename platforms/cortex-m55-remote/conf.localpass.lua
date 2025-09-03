@@ -18,7 +18,6 @@ if EXECUTABLE_PATH == nil then
 end
 
 platform = {
-    log_level=5;
     moduletype = "ContainerDeferModulesConstruct";
     quantum_ns = 10000000;
 
@@ -60,9 +59,10 @@ platform = {
     },
         
     plugin_0 = {
-        moduletype = "RemotePass", -- can be replaced by 'Container'
+        -- moduletype = "RemotePass", -- can be replaced by 'Container'
+        moduletype = "Container", -- can be replaced by 'Container'
         exec_path = EXECUTABLE_PATH.."/remote_cpu",
-        remote_argv = {tostring(5)},
+        remote_argv = {tostring(1)},
         tlm_initiator_ports_num = 2,
         tlm_target_ports_num = 0,
         target_signals_num = 4,
@@ -71,7 +71,8 @@ platform = {
         initiator_socket_1 = {bind = "&router.target_socket"},
 
         plugin_pass = {
-            moduletype = "RemotePass", -- -- can be replaced by 'LocalPass'
+            --moduletype = "RemotePass", -- -- can be replaced by 'LocalPass'
+            moduletype = "LocalPass", -- -- can be replaced by 'LocalPass'
             tlm_initiator_ports_num = 0,
             tlm_target_ports_num = 2,
             target_signals_num = 0,
