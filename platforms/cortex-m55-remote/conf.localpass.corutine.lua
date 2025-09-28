@@ -95,7 +95,8 @@ platform = {
         qemu_inst = {
             moduletype = "QemuInstance",
             args = {"&qemu_inst_mgr", "AARCH64"},
-            sync_policy = "multithread-freerunning",
+            tcg_mode = "COROUTINE",
+            sync_policy = "tlm2",
         },
 
         cpu_0={

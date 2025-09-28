@@ -20,7 +20,7 @@ end
 platform = {
     moduletype = "ContainerDeferModulesConstruct";
     quantum_ns = 10000000;
-    log_level=5;
+
     router = {
         moduletype="router";
         log_level=0;
@@ -44,10 +44,10 @@ platform = {
     };
 
     pl011_uart_0 =  {
-        moduletype = "Pl011",
-        dylib_path = "uart-pl011";
+        moduletype = "qemu_pl011",
+        dylib_path = "qemu_pl011";
         target_socket = {address= 0xc0000000, size=0x1000, bind = "&router.initiator_socket"},
-        irq = {bind = "&plugin_0.target_signal_socket_0"},
+        irq_out = {bind = "&plugin_0.target_signal_socket_0"},
         backend_socket = { bind = "&charbackend_stdio_0.biflow_socket"  },
     },
     
@@ -59,9 +59,7 @@ platform = {
     },
         
     plugin_0 = {
-        -- moduletype = "RemotePass", -- can be replaced by 'Container'
-	    log_level=5;
-        moduletype = "Container", -- can be replaced by 'Container'
+        moduletype = "RemotePass", -- can be replaced by 'Container'
         exec_path = EXECUTABLE_PATH.."/remote_cpu",
         remote_argv = {tostring(1)},
         tlm_initiator_ports_num = 2,
@@ -72,10 +70,7 @@ platform = {
         initiator_socket_1 = {bind = "&router.target_socket"},
 
         plugin_pass = {
-            --moduletype = "RemotePass", -- -- can be replaced by 'LocalPass'
-            moduletype = "LocalPass", -- -- can be replaced by 'LocalPass'
-            sync_policy = "LocalPass-test0",
-	    log_level=5;
+            moduletype = "RemotePass", -- -- can be replaced by 'LocalPass'
             tlm_initiator_ports_num = 0,
             tlm_target_ports_num = 2,
             target_signals_num = 0,
@@ -102,7 +97,7 @@ platform = {
             moduletype = "RemoteCPU",
             args = {"&qemu_inst"},
             cpu = {
-                nvic = { mem = { address = 0xE000E000, size = 0x10000}, num_irq = 33 },
+                nvic = { mem = { address = 0xE000E000, size = 0x10000}, num_irq = 64 },
             },
         },
     },
