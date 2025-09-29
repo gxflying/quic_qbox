@@ -5,6 +5,6 @@ tags
 TAGS
 *~
 *.sw?
-.vscode
+# .vscode
 .DS_Store
 __pycache__
