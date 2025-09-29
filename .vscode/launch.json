@@ -67,6 +67,30 @@
                 "ignoreFailures": true
             }
         ]
+    },
+    {
+        "name": "local pass corutine dbg",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/install_dbg/bin/platforms/cortex-m55-remote/cortex-m55-vp",
+        "args": ["-l", "${workspaceFolder}/platforms/cortex-m55-remote/conf.localpass.corutine.lua"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "Set Disassembly Flavor to Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+        ]
     }
     ]
 }
