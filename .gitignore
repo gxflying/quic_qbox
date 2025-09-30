@@ -1,5 +1,6 @@
 /build*/
 !build_dbg
+install_dbg
 /debug*/
 tags
 TAGS

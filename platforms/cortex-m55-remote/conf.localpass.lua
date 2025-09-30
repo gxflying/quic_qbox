@@ -19,7 +19,7 @@ end
 
 platform = {
     moduletype = "ContainerDeferModulesConstruct";
-    quantum_ns = 10000000;
+    quantum_ns = 1000000;
     log_level=5;
     router = {
         moduletype="router";
@@ -31,6 +31,7 @@ platform = {
             target_socket = {address=0x0, size=0x20000, bind = "&router.initiator_socket"},
             shared_memory=true,
             load={bin_file=top().."fw/cortex-m55/cortex-m55.bin", offset=0},
+            latency = "30000000 ns",  -- 用带单位的字符串代替纯数字
         },
 
     keep_alive_0 = {
@@ -95,7 +96,8 @@ platform = {
         qemu_inst = {
             moduletype = "QemuInstance",
             args = {"&qemu_inst_mgr", "AARCH64"},
-            sync_policy = "multithread-freerunning",
+            -- sync_policy = "multithread-freerunning",
+            sync_policy = "multithread",
         },
 
         cpu_0={
